@@ -1,3 +1,5 @@
+### Node-Express-Mongodb based Authentication Service
+
 This repository was primarily created to build an authentication service. 
 
 The primary objective was to understand what it takes to build an authentication service without the use of any third party frameworks such as PassportJS, Auth0, Cognito, etc.
