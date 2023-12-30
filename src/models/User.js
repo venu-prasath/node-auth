@@ -124,7 +124,29 @@ UserSchema.methods.generateRefreshToken = async function() {
     await user.save();
 
     return refreshToken;
-}
+};
+
+UserSchema.methods.generateResetToken = async function() {
+    const resetTokenValue = crypto.randomBytes(20).toString("base64url");
+    const resetTokenSecret = crypto.randomBytes(10).toString("hex");
+    const user = this;
+
+    const resetToken = `${resetTokenValue}+${resetTokenSecret}`;
+
+    const resetTokenHash = crypto
+        .createHmac("sha256", resetTokenSecret)
+        .update(resetTokenValue)
+        .digest("hex");
+
+    user.resetpasswordtoken = resetTokenHash;
+    user.resetpasswordtokenexpiry = 
+        Date.now() + (RESET_PASSWORD_TOKEN_EXPIRY_MINS || 5) * 60 * 1000;
+
+    await user.save();
+    return resetToken;
+};
+
+const UserModel = mongoose.model("User", UserSchema);
 
 
 module.exports = UserModel;
