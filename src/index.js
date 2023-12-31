@@ -12,6 +12,8 @@ const routes = require("./routes");
 
 const app = express();
 app.use(cors(corsOptions));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 const PORT = process.env.PORT || 8000;
 
 app.get("/", (req, res) => {

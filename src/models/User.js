@@ -51,7 +51,7 @@ UserSchema.set("toJSON", {
 });
 
 //3. Attach Middleware
-UserSchema.pre("save", async (next) => {
+UserSchema.pre("save", async function(next) {
     try {
         if(this.isModified("password")) {
             const salt = await bcrypt.genSalt(10);

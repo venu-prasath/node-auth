@@ -17,11 +17,11 @@ module.exports.signupValidator = [
     body("firstName")
         .trim()
         .notEmpty()
-        .withMessage("Firstname CANNOT be empty"),
+        .withMessage("FirstName CANNOT be empty"),
     body("lastName")
         .trim()
         .notEmpty()
-        .withMessage("Lastname CANNOT be empty"),
+        .withMessage("LastName CANNOT be empty"),
     body("email")
         .trim()
         .notEmpty()

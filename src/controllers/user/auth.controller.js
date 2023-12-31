@@ -66,6 +66,7 @@ module.exports.login = async (req, res, next) => {
 //signup
 module.exports.signup = async (req, res, next) => {
     try {
+        console.log(req.body);
         const errors = validationResult(req);
         if(!errors.isEmpty()) {
             throw new CustomError(
@@ -77,7 +78,7 @@ module.exports.signup = async (req, res, next) => {
 
         const { firstName, lastName, email, password } = req.body;
 
-        const newUser = new User({ firstName, lasetName, email, password });
+        const newUser = new User({ firstName, lastName, email, password });
         await newUser.save();
         const accessToken = await newUser.generateAccessToken();
         const refreshToken = await newUser.generateRefreshToken();
@@ -134,7 +135,7 @@ module.exports.logout = async (req, res, next) => {
 
 module.exports.logoutAllDevices = async (req, res, next) => {
     try {
-        const userId = req.userId,
+        const userId = req.userId;
         const user = await User.findById(userId);
 
         user.tokens = undefined;
