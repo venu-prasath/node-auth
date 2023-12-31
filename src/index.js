@@ -8,6 +8,7 @@ const { AppErrorHandler,
         LostErrorHandler,
 } = require("./config/exceptionHandlers/handler.js");
 const CustomError = require("./config/errors/CustomErrors.js");
+const routes = require("./routes");
 
 const app = express();
 app.use(cors(corsOptions));
@@ -25,6 +26,8 @@ app.get("/boom", (req, res, next) => {
         next(error);
     }
 });
+
+app.use("/api", routes);
 
 app.all("*", function(req, res, next) {
     next();
