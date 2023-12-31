@@ -140,7 +140,7 @@ UserSchema.methods.generateResetToken = async function() {
 
     user.resetpasswordtoken = resetTokenHash;
     user.resetpasswordtokenexpiry = 
-        Date.now() + (RESET_PASSWORD_TOKEN_EXPIRY_MINS || 5) * 60 * 1000;
+        Date.now() + (RESET_PASSWORD_TOKEN.expiry || 5) * 60 * 1000;
 
     await user.save();
     return resetToken;

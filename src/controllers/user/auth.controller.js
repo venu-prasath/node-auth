@@ -253,7 +253,7 @@ module.exports.forgotPassword = async (req, res, next) => {
         }
 
         const email = req.body.email;
-        const user = await user.findOne( { email });
+        const user = await User.findOne( { email });
         if(!user) throw new CustomError("Email not sent", 404);
 
         let resetToken = await user.generateResetToken();
@@ -290,12 +290,16 @@ module.exports.forgotPassword = async (req, res, next) => {
                 html: message,
                 subject: "Reset password", 
             });
+            res.status(200).json({
+                success: true,
+                message: "Reset Email sent!"
+            })
         } catch (error) {
             user.resetpasswordtoken = undefined;
             user.resetpasswordtokenexpiry = undefined;
             await user.save();
 
-            console.log(error.messasge);
+            console.log(error);
             throw new CustomError("Email not sent", 500);
         }
     } catch (error) {

@@ -6,6 +6,8 @@ const EMAIL = {
 };
 
 async function main(mailOptions) {
+    console.log(EMAIL.authPass);
+    console.log(EMAIL.authUser);
     const transporter = nodemailer.createTransport({
         host: "sandbox.smtp.mailtrap.io",
         port: 2525,
